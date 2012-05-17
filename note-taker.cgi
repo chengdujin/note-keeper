@@ -5,7 +5,7 @@
 #
 # Inlcuding note-writer,
 # Copyleft 2012-2013 Yuan JIN
-# Released under the GPL Version 2 license
+# Released under the GPL Version 3 license
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
