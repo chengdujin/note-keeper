@@ -93,9 +93,9 @@ def read_mongo(parameters, nids_available):
             if u'content' in any:
                 return any['content']
             else:
-                return None
+                raise Exception('Error in misformat in a databse entry')
         else:
-            return None
+            raise Exception('Error of a missing database entry')
 
     result = {}
     result['list'] = dict((index, dict([('nid', q_nid), ('mod_time', rclient.hget(parameters['uid'], q_nid)), ('content', query(q_nid))]) ) for index, q_nid in enumerate(nids_available))
