@@ -98,6 +98,8 @@ def read_mongo(parameters, nids_available):
             raise Exception('Error of a missing database entry')
 
     result = {}
+    # reverse the list, so that lifo
+    nids_available.reverse()
     result['list'] = dict((index, dict([('nid', q_nid), ('mod_time', rclient.hget(parameters['uid'], q_nid)), ('content', query(q_nid))]) ) for index, q_nid in enumerate(nids_available))
     return result
 
