@@ -132,7 +132,7 @@ def check_parameters(reader):
                             if 'type' in unchecked and unchecked['type']:
                                 if 'content' in unchecked:
                                     return unchecked
-                raise Exception('Error in ill-formatting')
+                raise Exception(str(unchecked))
             elif op == 'count':
                 if 'uid' in unchecked and unchecked['uid']:
                     return unchecked

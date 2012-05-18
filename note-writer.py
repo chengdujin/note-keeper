@@ -9,7 +9,7 @@
 # @author Yuan JIN
 # @contact jinyuan@baidu.com
 # @created May 16, 2012
-# @updated May 16, 2012
+# @updated May 18, 2012
 #
 
 ##
@@ -56,7 +56,8 @@ def task_edit(gearman_worker, gearman_job):
     '''update valid item with a new value'''
     # TODO add try-except
     job_data = parse(gearman_job.data)
-    mong_col.update({'nid':job_data['nid']}, {'$set':{'content':job_data['content']}})
+    print str(job_data)
+    mongo_col.update({'nid':job_data['nid']}, {'$set':{'content':job_data['content']}})
     return 'okay'
 
 gworker.register_task('add', task_add)
