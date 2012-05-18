@@ -31,7 +31,7 @@
 # @authour Yuan JIN
 # @contact jinyuan@baidu.com
 # @created May 15, 2012
-# @updated May 17, 2012
+# @updated May 18, 2012
 #
 # TODO
 # 1. redis persistence
