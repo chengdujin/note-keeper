@@ -106,9 +106,51 @@ def generate_nid(uid):
     time_stamp = strftime('%Y%m%d%H%M%S', gmtime())
     return '%s%s' % (uid, time_stamp)
 
-def validate_parameters(data):
+def check_parameters(reader):
     '''check the validity of parameters'''
-    pass
+    def checker(data):
+        '''wrapper''' 
+        unchecked = reader(data)
+        if 'op' in unchecked:                                           
+            op = unchecked['op']
+            if op == 'add':
+                if 'uid' in unchecked and unchecked['uid']:
+                    if 'mod_time' in unchecked and unchecked['mod_time']:
+                        if 'type' in unchecked and unchecked['type']:
+                            if 'content' in unchecked:
+                                return unchecked
+                raise Exception('Error in ill-formatting')
+            elif op == 'remove':     
+                if 'uid' in unchecked and unchecked['uid']:
+                    if 'nid' in unchecked and unchecked['nid']:
+                        return unchecked
+                raise Exception('Error in ill-formatting')
+            elif op == 'edit':
+                if 'uid' in unchecked and unchecked['uid']:
+                    if 'nid' in unchecked and unchecked['nid']:
+                        if 'mod_time' in unchecked and unchecked['mod_time']:
+                            if 'type' in unchecked and unchecked['type']:
+                                if 'content' in unchecked:
+                                    return unchecked
+                raise Exception('Error in ill-formatting')
+            elif op == 'count':
+                if 'uid' in unchecked and unchecked['uid']:
+                    return unchecked
+                raise Exception('Error in ill-formatting')
+            elif op == 'list':
+                if 'uid' in unchecked and unchecked['uid']:
+                    if 'nid' in unchecked and unchecked['nid']:
+                        if 'count' in unchecked and unchecked['count']:
+                            return unchecked                            
+                raise Exception('Error in ill-formatting')
+            elif op == 'sync':
+                if 'uid' in unchecked and unchecked['uid']:
+                    if 'count' in unchecked and unchecked['count']:
+                        return unchecked
+                raise Exception('Error in ill-formatting')
+        else:               
+            raise Exception('Error in providing operation type')
+    return checker 
 
 def process(parameters):
     '''read and write operations'''
@@ -232,6 +274,7 @@ def process(parameters):
 
     raise Exception('Unrecognizable operation')
 
+@check_parameters
 def read(environ):
     '''parse data sent via http request and parcel into recognizable data'''
     bundle = cgi.parse_qsl(environ['wsgi.input'].read(int(environ['CONTENT_LENGTH'])))
