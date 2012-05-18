@@ -41,8 +41,7 @@
 # 5. 4-level storage refactor
 # 6. restful api
 # 7. fault tolerance
-# 8. parameter check (decorator) 
-# 9. documentation
+# 8. documentation
 #
 
 
