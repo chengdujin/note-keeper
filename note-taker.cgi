@@ -98,7 +98,7 @@ def read_mongo(parameters, nids_available):
 
     result = {}
     # reverse the list, so that lifo
-    nids_available.reverse()
+    nids_available = nides_available[::-1]
     result['list'] = dict((index, dict([('nid', q_nid), ('mod_time', rclient.hget(parameters['uid'], q_nid)), ('content', query(q_nid))]) ) for index, q_nid in enumerate(nids_available))
     return result
 
